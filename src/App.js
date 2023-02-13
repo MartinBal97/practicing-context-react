@@ -1,25 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState, createContext } from 'react';
+import Counter from './components/Counter';
+import NextBtn from './components/NextBtn';
+import PrevBtn from './components/PrevBtn';
+import ChangeColors from './components/ChangeColors.jsx'
 
-function App() {
+export const CountContext = createContext()
+export const ChangeColorContext = createContext()
+
+export default function App() {
+
+  const [counter, setCounter] = useState(0);
+  const [color, setColor] = useState('lightgreen')
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <CountContext.Provider value={{ counter, setCounter }}>
+        <Counter />
+        <PrevBtn />
+        <NextBtn />
+      </CountContext.Provider>
+
+      <ChangeColorContext.Provider value={{color,setColor}}>
+        <ChangeColors/>
+      </ChangeColorContext.Provider>
+
     </div>
   );
 }
 
-export default App;
